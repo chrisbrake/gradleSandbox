@@ -1,8 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies{
+      classpath 'com.linkedin.pygradle:pygradle-plugin:0.7.+'
+}
+}
+
 apply plugin: 'idea'
+apply plugin: 'com.linkedin.python-cli'
 
 
 idea {
     project {
-        jdkName = 'Python 3.5'
+        jdkName = 'Python'
     }
+}
+
+dependencies {
+    python 'pypi:requests:2.9.1'
 }
