@@ -9,15 +9,14 @@ buildscript {
 }
 
 apply plugin: 'idea'
-apply plugin: 'com.linkedin.python-cli'
+apply plugin: 'com.linkedin.python-sdist'
 
 
-idea {
-    project {
-        jdkName = 'Python'
-    }
+python {
+   docsDir = project.file('docs').path
+   srcDir = project.file('.').path
 }
 
-dependencies {
-    python 'pypi:requests:2.9.1'
-}
+dependencies { }
+
+repositories { pyGradlePyPi() }
