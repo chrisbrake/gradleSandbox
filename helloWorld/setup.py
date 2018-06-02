@@ -143,6 +143,6 @@ class GradleDistribution(Distribution, object):
 setup(
     distclass=GradleDistribution,
     package_dir={'': '.'},
-    packages=find_packages('.'),
+    packages=find_packages('hello'),
     include_package_data=True,
 )
