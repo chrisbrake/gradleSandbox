@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies{
+      classpath 'com.linkedin.pygradle:pygradle-plugin:0.+'
+}
+}
+
+apply plugin: 'idea'
+apply plugin: 'com.linkedin.python-web-app'
+
+version = "0.1"
+
+python {
+   docsDir = project.file('docs').path
+   srcDir = project.file('server').path
+   details {
+     pythonVersion = '3.6'
+     systemPythonInterpreter = file("/usr/bin/python3")
+   }
+}
+
+dependencies {
+    python 'pypi:requests:2.18.4'
+}
+
+repositories { pyGradlePyPi() }

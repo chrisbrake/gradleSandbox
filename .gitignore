@@ -103,3 +103,6 @@ ENV/
 
 # Gradle
 .idea/
+
+# JS
+node_modules/
