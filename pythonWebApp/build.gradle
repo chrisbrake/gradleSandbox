@@ -31,7 +31,9 @@ repositories { pyGradlePyPi() }
 task webpackAssemble(type: Exec) {
     workingDir "$projectDir/src/static"
     inputs.file("$workingDir/package-lock.json")
+    inputs.file("$workingDir/webpack.config.json")
     inputs.dir("$workingDir/js")
+    outputs.dir("$workingDir/dist")
     commandLine "npm", "run", "build"
 }
 tasks.assemble.dependsOn webpackAssemble
@@ -39,7 +41,9 @@ tasks.assemble.dependsOn webpackAssemble
 task webpackTest(type: Exec) {
     workingDir "$projectDir/src/static"
     inputs.file("$workingDir/package-lock.json")
+    inputs.file("$workingDir/webpack.config.json")
     inputs.dir("$workingDir/js")
+    outputs.upToDateWhen { true }
     commandLine "npm", "run", "test"
 }
 tasks.check.dependsOn webpackTest
