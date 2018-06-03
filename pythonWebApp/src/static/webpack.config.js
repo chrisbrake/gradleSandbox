@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = {
-    mode: "production",
+    mode: "none",
     entry: __dirname + '/js/index.jsx',
     output: {
         path: __dirname + '/dist',
