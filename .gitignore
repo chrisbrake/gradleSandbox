@@ -106,3 +106,4 @@ ENV/
 
 # JS
 node_modules/
+coverage/
