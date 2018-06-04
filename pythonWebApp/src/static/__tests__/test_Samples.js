@@ -11,6 +11,7 @@ describe('Example test forms', () => {
     })
 
     test.skip('Test my important feature', () => {
-        // TODO
+        // This test will be skipped.
+        // To skip all but one, set the one you want to test.only(...
     })
 });
