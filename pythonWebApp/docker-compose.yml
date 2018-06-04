@@ -1,7 +1,11 @@
-version: '3'
+version: '2.2'
 
 services:
   httpd:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    mem_limit: 10m
+    memswap_limit: 10m
     ports:
       - 8080:8080
