@@ -15,7 +15,8 @@ version = "0.1"
 
 python {
    docsDir = project.file('docs').path
-   srcDir = project.file('server').path
+   srcDir = project.file('src/server').path
+   testDir = project.file('src/server/tests').path
    details {
      pythonVersion = '3.6'
      systemPythonInterpreter = file("/usr/bin/python3")
@@ -48,6 +49,7 @@ task webpackAssemble(type: Exec) {
 tasks.assemble.dependsOn webpackAssemble
 
 task webpackTest(type: Exec) {
+    dependsOn webpackAssemble
     workingDir "$projectDir/src/static"
     inputs.file("$workingDir/package-lock.json")
     inputs.file("$workingDir/webpack.config.json")
