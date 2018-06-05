@@ -9,11 +9,12 @@ buildscript {
 }
 
 apply plugin: 'idea'
-apply plugin: 'com.linkedin.python-web-app'
+apply plugin: 'com.linkedin.python-sdist'
 
 version = "0.1"
 
 def webpackHome = "$projectDir/src/static"
+def dockerHome = projectDir
 
 python {
    docsDir = project.file('docs').path
@@ -61,3 +62,33 @@ task webpackTest(type: Exec) {
     commandLine "npm", "run", "test"
 }
 tasks.check.dependsOn webpackTest
+
+task dockerBuild(type: Exec) {
+    group "Docker"
+    description "Construct a docker container from this project."
+    dependsOn assemble
+    workingDir dockerHome
+    inputs.dir("$projectDir/src")
+    inputs.file("$projectDir/Dockerfile")
+    inputs.file("$projectDir/docker-compose.yml")
+    inputs.file("$projectDir/pinned.txt")
+    commandLine "docker-compose", "build"
+}
+
+task dockerStart(type: Exec) {
+    group "Docker"
+    description "Start an instance of this project."
+    dependsOn dockerBuild
+    workingDir dockerHome
+    inputs.dir("$projectDir/src")
+    inputs.file("$projectDir/Dockerfile")
+    inputs.file("$projectDir/docker-compose.yml")
+    inputs.file("$projectDir/pinned.txt")
+    commandLine "docker-compose", "up", "--detach"
+}
+
+task dockerClean(type: Exec) {
+    group "Docker"
+    description "Stop and remove instances of this project."
+    commandLine "docker-compose", "rm", "--stop", "--force"
+}
