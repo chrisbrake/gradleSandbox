@@ -13,6 +13,8 @@ apply plugin: 'com.linkedin.python-web-app'
 
 version = "0.1"
 
+def webpackHome = "$projectDir/src/static"
+
 python {
    docsDir = project.file('docs').path
    srcDir = project.file('src/server').path
@@ -30,7 +32,7 @@ dependencies {
 repositories { pyGradlePyPi() }
 
 task webpackInstall(type: Exec) {
-    workingDir "$projectDir/src/static"
+    workingDir webpackHome
     inputs.file("$workingDir/package-lock.json")
     inputs.file("$workingDir/webpack.config.json")
     outputs.dir("$workingDir/node_modules")
@@ -39,7 +41,7 @@ task webpackInstall(type: Exec) {
 
 task webpackAssemble(type: Exec) {
     dependsOn webpackInstall
-    workingDir "$projectDir/src/static"
+    workingDir webpackHome
     inputs.file("$workingDir/package-lock.json")
     inputs.file("$workingDir/webpack.config.json")
     inputs.dir("$workingDir/js")
@@ -50,7 +52,7 @@ tasks.assemble.dependsOn webpackAssemble
 
 task webpackTest(type: Exec) {
     dependsOn webpackAssemble
-    workingDir "$projectDir/src/static"
+    workingDir webpackHome
     inputs.file("$workingDir/package-lock.json")
     inputs.file("$workingDir/webpack.config.json")
     inputs.dir("$workingDir/js")
