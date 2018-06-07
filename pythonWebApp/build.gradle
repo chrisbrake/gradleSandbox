@@ -92,3 +92,12 @@ task dockerClean(type: Exec) {
     description "Stop and remove instances of this project."
     commandLine "docker-compose", "rm", "--stop", "--force"
 }
+
+task integrationTests(type: Exec) {
+    dependsOn dockerStart
+    finalizedBy dockerClean
+    mustRunAfter pytest
+    workingDir "$projectDir"
+    commandLine "$projectDir/build/venv/bin/py.test", "tests"
+}
+tasks.check.dependsOn integrationTests
