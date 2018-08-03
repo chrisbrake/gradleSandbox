@@ -1,0 +1,5 @@
+dockerNode (image: 'centos/systemd:latest') {
+    stage('Say Hello') {
+        echo 'Hello from CentOS!'
+    }
+}

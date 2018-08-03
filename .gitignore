@@ -101,8 +101,9 @@ ENV/
 # mypy
 .mypy_cache/
 
-# Gradle
+# Idea
 .idea/
+gradleSandbox.iml
 
 # JS
 node_modules/
